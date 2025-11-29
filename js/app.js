@@ -1,72 +1,62 @@
-// app.js
-import { auth } from "./firebase.js";
-import { logoutUser } from "./auth.js";
+import { registerUser, loginUser, logoutUser } from "./auth.js";
 import { saveIncome, getUserIncomes, saveExpense, getUserExpenses, saveGoal, getUserGoals } from "./firestore.js";
+import { auth } from "./firebase.js";
 
-// Cerrar sesión
-document.getElementById("logout-btn").addEventListener("click", logoutUser);
+// Auth - index.html
+const loginBtn = document.getElementById("login-btn");
+const registerBtn = document.getElementById("register-btn");
+const emailInput = document.getElementById("email");
+const passwordInput = document.getElementById("password");
 
-// Botones Dashboard
-document.getElementById("add-income-btn").addEventListener("click", async () => {
-  const source = document.getElementById("income-source").value;
-  const amount = document.getElementById("income-amount").value;
-  if(source && amount) await saveIncome(source, amount);
-  loadIncomes();
-});
-
-document.getElementById("add-expense-btn").addEventListener("click", async () => {
-  const category = document.getElementById("expense-category").value;
-  const amount = document.getElementById("expense-amount").value;
-  if(category && amount) await saveExpense(category, amount);
-  loadExpenses();
-});
-
-document.getElementById("add-goal-btn").addEventListener("click", async () => {
-  const name = document.getElementById("goal-name").value;
-  const amount = document.getElementById("goal-amount").value;
-  if(name && amount) await saveGoal(name, amount);
-  loadGoals();
-});
-
-// Cargar datos
-auth.onAuthStateChanged(async (user) => {
-  if(user) {
-    loadIncomes();
-    loadExpenses();
-    loadGoals();
-  }
-});
-
-// Funciones de carga
-async function loadIncomes() {
-  const list = document.getElementById("income-list");
-  list.innerHTML = "";
-  const incomes = await getUserIncomes();
-  incomes.forEach(i => {
-    const li = document.createElement("li");
-    li.textContent = `${i.source}: $${i.amount}`;
-    list.appendChild(li);
+if (loginBtn) {
+  loginBtn.addEventListener("click", () => {
+    loginUser(emailInput.value, passwordInput.value);
   });
 }
 
-async function loadExpenses() {
-  const list = document.getElementById("expense-list");
-  list.innerHTML = "";
-  const expenses = await getUserExpenses();
-  expenses.forEach(e => {
-    const li = document.createElement("li");
-    li.textContent = `${e.category}: $${e.amount}`;
-    list.appendChild(li);
+if (registerBtn) {
+  registerBtn.addEventListener("click", () => {
+    registerUser(emailInput.value, passwordInput.value);
   });
 }
 
-async function loadGoals() {
-  const list = document.getElementById("goal-list");
-  list.innerHTML = "";
-  const goals = await getUserGoals();
-  goals.forEach(g => {
-    const li = document.createElement("li");
-    li.textContent = `${g.name}: $${g.amount}`;
-    list.appendChild(li);
+// Logout - dashboard.html
+const logoutBtn = document.getElementById("logout-btn");
+if (logoutBtn) {
+  logoutBtn.addEventListener("click", logoutUser);
+}
+
+// Dashboard funcionalidad
+const agregarIngresoBtn = document.getElementById("agregar-ingreso-btn");
+const agregarGastoBtn = document.getElementById("agregar-gasto-btn");
+const agregarMetaBtn = document.getElementById("agregar-meta-btn");
+
+if (agregarIngresoBtn) {
+  agregarIngresoBtn.addEventListener("click", async () => {
+    const fuente = document.getElementById("fuente-ingreso").value;
+    const cantidad = document.getElementById("cantidad-ingreso").value;
+    await saveIncome(fuente, cantidad);
+    alert("Ingreso agregado");
+    location.reload();
+  });
+}
+
+if (agregarGastoBtn) {
+  agregarGastoBtn.addEventListener("click", async () => {
+    const categoria = document.getElementById("categoria-gasto").value;
+    const cantidad = document.getElementById("cantidad-gasto").value;
+    await saveExpense(categoria, cantidad);
+    alert("Gasto agregado");
+    location.reload();
+  });
+}
+
+if (agregarMetaBtn) {
+  agregarMetaBtn.addEventListener("click", async () => {
+    const nombre = document.getElementById("nombre-meta").value;
+    const monto = document.getElementById("monto-meta").value;
+    await saveGoal(nombre, monto);
+    alert("Meta agregada");
+    location.reload();
   });
 }
