@@ -1,0 +1,140 @@
+/* ===== GENERAL ===== */
+body {
+  margin: 0;
+  font-family: "Arial", sans-serif;
+  background: #f4f6f9;
+  color: #333;
+}
+
+h1, h2 {
+  margin: 0 0 15px;
+}
+
+.container {
+  width: 90%;
+  max-width: 450px;
+  margin: 40px auto;
+  text-align: center;
+}
+
+/* ===== HEADER DASHBOARD ===== */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #1a73e8;
+  color: white;
+  padding: 15px;
+  border-bottom-left-radius: 18px;
+  border-bottom-right-radius: 18px;
+}
+
+header h1 {
+  font-size: 22px;
+}
+
+.user-panel {
+  text-align: right;
+}
+
+#logoutBtn {
+  background: #ff5252;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+/* ===== AUTH FORMS ===== */
+.auth-container {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+form {
+  background: white;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+form h2 {
+  margin-bottom: 15px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background: #1a73e8;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1459b8;
+}
+
+/* ===== DASHBOARD SECTIONS ===== */
+.dashboard-section {
+  margin: 25px auto;
+  width: 92%;
+  background: white;
+  padding: 20px;
+  border-radius: 16px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+}
+
+.cards-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.card {
+  background: #e8f0fe;
+  padding: 15px;
+  border-radius: 10px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* ===== LISTAS ===== */
+#incomeList div,
+#expenseList div,
+#goalsList div {
+  background: #f1f3f4;
+  padding: 12px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* ===== MOBILE FIRST ===== */
+@media (min-width: 768px) {
+  .container {
+    max-width: 500px;
+  }
+
+  .cards-container {
+    flex-direction: row;
+  }
+
+  .card {
+    flex: 1;
+  }
+
+  header h1 {
+    font-size: 26px;
+  }
+}
