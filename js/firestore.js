@@ -1,57 +1,58 @@
-// firestore.js
 import { db, auth } from "./firebase.js";
 import { collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-// Ingresos
-export const saveIncome = async (source, amount) => {
-  if(!auth.currentUser) return;
-  await addDoc(collection(db, "incomes"), {
-    uid: auth.currentUser.uid,
-    source,
-    amount: parseFloat(amount),
-    date: new Date()
-  });
+export const saveIncome = async (fuente, cantidad) => {
+  try {
+    await addDoc(collection(db, "ingresos"), {
+      uid: auth.currentUser.uid,
+      fuente,
+      cantidad: Number(cantidad)
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getUserIncomes = async () => {
-  if(!auth.currentUser) return [];
-  const q = query(collection(db, "incomes"), where("uid", "==", auth.currentUser.uid));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => doc.data());
+  const q = query(collection(db, "ingresos"), where("uid", "==", auth.currentUser.uid));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map(doc => doc.data());
 };
 
 // Gastos
-export const saveExpense = async (category, amount) => {
-  if(!auth.currentUser) return;
-  await addDoc(collection(db, "expenses"), {
-    uid: auth.currentUser.uid,
-    category,
-    amount: parseFloat(amount),
-    date: new Date()
-  });
+export const saveExpense = async (categoria, cantidad) => {
+  try {
+    await addDoc(collection(db, "gastos"), {
+      uid: auth.currentUser.uid,
+      categoria,
+      cantidad: Number(cantidad)
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getUserExpenses = async () => {
-  if(!auth.currentUser) return [];
-  const q = query(collection(db, "expenses"), where("uid", "==", auth.currentUser.uid));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => doc.data());
+  const q = query(collection(db, "gastos"), where("uid", "==", auth.currentUser.uid));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map(doc => doc.data());
 };
 
 // Metas
-export const saveGoal = async (name, amount) => {
-  if(!auth.currentUser) return;
-  await addDoc(collection(db, "goals"), {
-    uid: auth.currentUser.uid,
-    name,
-    amount: parseFloat(amount),
-    date: new Date()
-  });
+export const saveGoal = async (nombre, monto) => {
+  try {
+    await addDoc(collection(db, "metas"), {
+      uid: auth.currentUser.uid,
+      nombre,
+      monto: Number(monto)
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };
 
 export const getUserGoals = async () => {
-  if(!auth.currentUser) return [];
-  const q = query(collection(db, "goals"), where("uid", "==", auth.currentUser.uid));
-  const querySnapshot = await getDocs(q);
-  return querySnapshot.docs.map(doc => doc.data());
+  const q = query(collection(db, "metas"), where("uid", "==", auth.currentUser.uid));
+  const snapshot = await getDocs(q);
+  return snapshot.docs.map(doc => doc.data());
 };
