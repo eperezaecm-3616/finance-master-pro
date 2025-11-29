@@ -1,37 +1,25 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FinanceMaster - Login</title>
-  <link rel="stylesheet" href="css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Finance Master Pro - Inicio</title>
+<link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div class="container">
-    <h1>FinanceMaster</h1>
-    
-    <!-- Registro -->
-    <div id="register-section">
-      <h2>Registrarse</h2>
-      <form id="register-form">
-        <input type="email" id="register-email" placeholder="Correo electrónico" required>
-        <input type="password" id="register-password" placeholder="Contraseña" required>
-        <button type="submit">Registrar</button>
-      </form>
-    </div>
+<header>
+  <h1>Finance Master Pro</h1>
+</header>
 
-    <!-- Login -->
-    <div id="login-section">
-      <h2>Iniciar Sesión</h2>
-      <form id="login-form">
-        <input type="email" id="login-email" placeholder="Correo electrónico" required>
-        <input type="password" id="login-password" placeholder="Contraseña" required>
-        <button type="submit">Entrar</button>
-      </form>
+<main>
+  <section class="welcome">
+    <h2>Bienvenido a tu gestor financiero</h2>
+    <p>Administra tus ingresos, gastos, metas y análisis financiero de manera profesional.</p>
+    <div class="buttons">
+      <a href="login.html"><button>Iniciar Sesión</button></a>
+      <a href="register.html"><button>Registrarse</button></a>
     </div>
-  </div>
-
-  <script type="module" src="js/firebase.js"></script>
-  <script type="module" src="js/auth.js"></script>
+  </section>
+</main>
 </body>
 </html>
