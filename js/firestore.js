@@ -1,11 +1,10 @@
-import { getFirestore, collection, addDoc, getDocs, query, where } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { db } from "./firebase.js";
 import { auth } from "./firebase.js";
+import { collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
 
-const db = getFirestore();
-
-// ======================================================
-// Funciones de Ingresos
-// ======================================================
+// ===========================
+// INGRESOS
+// ===========================
 export async function saveIncome(source, amount) {
   const user = auth.currentUser;
   if (!user) return;
@@ -21,16 +20,14 @@ export async function saveIncome(source, amount) {
 export async function getUserIncomes() {
   const user = auth.currentUser;
   if (!user) return [];
-
   const q = query(collection(db, "incomes"), where("uid", "==", user.uid));
   const snapshot = await getDocs(q);
-  const incomes = snapshot.docs.map(doc => doc.data());
-  return incomes;
+  return snapshot.docs.map(doc => doc.data());
 }
 
-// ======================================================
-// Funciones de Gastos
-// ======================================================
+// ===========================
+// GASTOS
+// ===========================
 export async function saveExpense(category, amount) {
   const user = auth.currentUser;
   if (!user) return;
@@ -46,16 +43,14 @@ export async function saveExpense(category, amount) {
 export async function getUserExpenses() {
   const user = auth.currentUser;
   if (!user) return [];
-
   const q = query(collection(db, "expenses"), where("uid", "==", user.uid));
   const snapshot = await getDocs(q);
-  const expenses = snapshot.docs.map(doc => doc.data());
-  return expenses;
+  return snapshot.docs.map(doc => doc.data());
 }
 
-// ======================================================
-// Funciones de Metas
-// ======================================================
+// ===========================
+// METAS
+// ===========================
 export async function saveGoal(name, amount) {
   const user = auth.currentUser;
   if (!user) return;
@@ -71,9 +66,7 @@ export async function saveGoal(name, amount) {
 export async function getUserGoals() {
   const user = auth.currentUser;
   if (!user) return [];
-
   const q = query(collection(db, "goals"), where("uid", "==", user.uid));
   const snapshot = await getDocs(q);
-  const goals = snapshot.docs.map(doc => doc.data());
-  return goals;
+  return snapshot.docs.map(doc => doc.data());
 }
