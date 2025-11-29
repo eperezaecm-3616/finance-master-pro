@@ -1,0 +1,8 @@
+body { font-family: 'Segoe UI', sans-serif; background:#f4f6f8; color:#333; margin:0; padding:0; }
+header { background:#2c3e50; color:white; padding:15px 20px; display:flex; justify-content:space-between; align-items:center; }
+h1,h2 { margin:0; }
+main { padding:20px; }
+input { padding:8px; margin:5px 0; }
+button { padding:8px 12px; margin:5px; cursor:pointer; }
+ul { list-style:none; padding:0; }
+.login-container { max-width:400px; margin:50px auto; padding:20px; background:white; border-radius:8px; box-shadow:0 0 10px rgba(0,0,0,0.1); text-align:center;}
