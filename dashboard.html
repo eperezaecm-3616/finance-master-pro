@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinanceMaster PRO - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container dashboard-container">
+
+    <header>
+      <h1>Dashboard FinanceMaster PRO</h1>
+      <div class="user-menu">
+        <span id="userEmail"></span>
+        <button id="logoutBtn" class="btn">Cerrar sesión</button>
+      </div>
+    </header>
+
+    <!-- Resumen Financiero -->
+    <section class="dashboard-section">
+      <h2>Resumen Financiero</h2>
+      <div class="summary-cards">
+        <div class="card">
+          <h3>Patrimonio Neto</h3>
+          <p id="netWorth">$0</p>
+        </div>
+        <div class="card">
+          <h3>Flujo Mensual</h3>
+          <p id="monthlyFlow">$0</p>
+        </div>
+        <div class="card">
+          <h3>Líquido Disponible</h3>
+          <p id="liquidAvailable">$0</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ingresos -->
+    <section class="dashboard-section">
+      <h2>Ingresos</h2>
+      <form id="incomeForm" class="data-form">
+        <input type="text" id="incomeSource" placeholder="Fuente de ingreso" required>
+        <input type="number" id="incomeAmount" placeholder="Cantidad" required>
+        <button type="submit" class="btn">Agregar Ingreso</button>
+      </form>
+      <div id="incomeList" class="data-list"></div>
+    </section>
+
+    <!-- Gastos -->
+    <section class="dashboard-section">
+      <h2>Gastos</h2>
+      <form id="expenseForm" class="data-form">
+        <input type="text" id="expenseCategory" placeholder="Categoría" required>
+        <input type="number" id="expenseAmount" placeholder="Cantidad" required>
+        <button type="submit" class="btn">Agregar Gasto</button>
+      </form>
+      <div id="expenseList" class="data-list"></div>
+    </section>
+
+    <!-- Metas de Ahorro -->
+    <section class="dashboard-section">
+      <h2>Metas de Ahorro</h2>
+      <form id="goalForm" class="data-form">
+        <input type="text" id="goalName" placeholder="Nombre de la meta" required>
+        <input type="number" id="goalTarget" placeholder="Cantidad objetivo" required>
+        <button type="submit" class="btn">Agregar Meta</button>
+      </form>
+      <div id="goalList" class="data-list"></div>
+    </section>
+
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/firestore.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
