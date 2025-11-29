@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>FinanceMaster PRO — Dashboard Financiero</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <img src="assets/logo.svg" alt="Logo" class="logo">
+      <div>
+        <div class="brand-title">FinanceMaster</div>
+        <div class="brand-sub">Dashboard · PRO</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-btn active" data-view="overview">🏠 Resumen</button>
+      <button class="nav-btn" data-view="ingresos">➕ Ingresos</button>
+      <button class="nav-btn" data-view="gastos">💸 Gastos</button>
+      <button class="nav-btn" data-view="presupuesto">📊 Presupuesto vs Real</button>
+      <button class="nav-btn" data-view="ahorros">🎯 Ahorros & Metas</button>
+      <button class="nav-btn" data-view="deudas">🏦 Deudas & Créditos</button>
+      <button class="nav-btn" data-view="inversiones">💼 Inversiones</button>
+      <button class="nav-btn" data-view="habitos">🔍 Hábitos</button>
+      <button class="nav-btn" data-view="vencimientos">⏰ Vencimientos</button>
+    </nav>
+
+    <div class="sidebar-foot">
+      <div class="muted">Usuario: <strong>Amilcar</strong></div>
+      <div class="muted">Local: <span id="last-sync">—</span></div>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div class="title-h">Dashboard principal de Finanzas</div>
+      <div class="actions">
+        <button id="btn-export" class="btn">Exportar JSON</button>
+        <button id="btn-reset" class="btn ghost">Reset demo</button>
+      </div>
+    </header>
+
+    <section id="overview" class="view active">
+      <div class="grid">
+        <div class="card">
+          <div class="card-head"><strong>Resumen Financiero General</strong></div>
+          <div class="card-body">
+            <div class="row">
+              <div>
+                <div class="label">Saldos (todas mis cuentas)</div>
+                <div class="big" id="total-saldos">$0</div>
+              </div>
+              <div>
+                <canvas id="chart-saldos" height="120"></canvas>
+              </div>
+            </div>
+
+            <div class="row small-grid">
+              <div class="mini">
+                <div class="muted">Patrimonio neto</div>
+                <div class="value" id="patrimonio-neto">$0</div>
+              </div>
+              <div class="mini">
+                <div class="muted">Flujo mensual</div>
+                <div class="value" id="flujo-mensual">$0</div>
+              </div>
+              <div class="mini">
+                <div class="muted">Líquido disponible</div>
+                <div class="value" id="liquido">$0</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-head"><strong>Rendimiento — últimos 12 meses</strong></div>
+          <div class="card-body">
+            <canvas id="chart-rendimiento" height="140"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ingresos -->
+    <section id="ingresos" class="view">
+      <div class="card">
+        <div class="card-head"><strong>Ingresos</strong></div>
+        <div class="card-body">
+          <form id="form-ingreso" class="form-inline">
+            <input name="source" placeholder="Fuente (Salario/Inversión/Extra)" required>
+            <input name="amount" placeholder="Monto" type="number" step="0.01" required>
+            <select name="freq">
+              <option value="mensual">Mensual</option>
+              <option value="unico">Único</option>
+            </select>
+            <button class="btn" type="submit">Agregar ingreso</button>
+          </form>
+
+          <div class="list" id="list-ingresos"></div>
+
+          <div class="summary-row">
+            <div>Total mensual: <strong id="ingreso-total-mes">$0</strong></div>
+            <div>Acumulado anual: <strong id="ingreso-anual">$0</strong></div>
+          </div>
+
+          <div class="chart-mini">
+            <canvas id="chart-ingresos" height="90"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gastos -->
+    <section id="gastos" class="view">
+      <div class="card">
+        <div class="card-head"><strong>Gastos por Categorías</strong></div>
+        <div class="card-body">
+          <form id="form-gasto" class="form-inline">
+            <select name="categoria" required>
+              <option value="">Selecciona categoría</option>
+              <option value="Vivienda">Vivienda</option>
+              <option value="Alimentación">Alimentación</option>
+              <option value="Transporte">Transporte</option>
+              <option value="Servicios">Servicios</option>
+              <option value="Suscripciones">Suscripciones</option>
+              <option value="Seguros">Seguros</option>
+              <option value="Entretenimiento">Entretenimiento</option>
+              <option value="Restaurantes">Restaurantes</option>
+              <option value="Compras">Compras</option>
+              <option value="Ahorro">Ahorro</option>
+              <option value="Inversiones">Inversiones</option>
+            </select>
+            <input name="desc" placeholder="Descripción">
+            <input name="amount" placeholder="Monto" type="number" step="0.01" required>
+            <button class="btn" type="submit">Agregar gasto</button>
+          </form>
+
+          <div class="budget-setup">
+            <div><strong>Presupuesto por categoría (mensual)</strong></div>
+            <div class="budget-list" id="budget-list"></div>
+          </div>
+
+          <div class="list" id="list-gastos"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Presupuesto vs Real -->
+    <section id="presupuesto" class="view">
+      <div class="card">
+        <div class="card-head"><strong>Presupuesto vs Real</strong></div>
+        <div class="card-body">
+          <div id="pvstable"></div>
+          <div class="alerts" id="alerts"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ahorros y Metas -->
+    <section id="ahorros" class="view">
+      <div class="card">
+        <div class="card-head"><strong>Ahorros y Metas</strong></div>
+        <div class="card-body">
+          <form id="form-meta" class="form-inline">
+            <input name="name" placeholder="Meta (ej: Vacaciones)" required>
+            <input name="target" placeholder="Objetivo ($)" type="number" step="0.01" required>
+            <input name="monthly" placeholder="Ahorro mensual ($)" type="number" step="0.01" required>
+            <button class="btn" type="submit">Crear meta</button>
+          </form>
+
+          <div id="metas-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Deudas -->
+    <section id="deudas" class="view">
+      <div class="card">
+        <div class="card-head"><strong>Deudas y Créditos</strong></div>
+        <div class="card-body">
+          <form id="form-deuda" class="form-inline">
+            <input name="name" placeholder="Tipo (Tarjeta/Préstamo)" required>
+            <input name="balance" placeholder="Saldo" type="number" step="0.01" required>
+            <input name="due" placeholder="Próx. pago (YYYY-MM-DD)" type="date" required>
+            <input name="interest" placeholder="Tasa anual (%)" type="number" step="0.01">
+            <button class="btn" type="submit">Agregar deuda</button>
+          </form>
+          <div id="deudas-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Inversiones -->
+    <section id="inversiones" class="view">
+      <div class="card">
+        <div class="card-head"><strong>Inversiones</strong></div>
+        <div class="card-body">
+          <form id="form-inv" class="form-inline">
+            <input name="asset" placeholder="Activo (AAPL / BTC / Fondo)" required>
+            <input name="amount" placeholder="Valor actual ($)" type="number" step="0.01" required>
+            <input name="alloc" placeholder="Porcentaje cartera (%)" type="number" step="0.01">
+            <button class="btn" type="submit">Añadir</button>
+          </form>
+          <div id="inv-list"></div>
+          <div class="chart-mini">
+            <canvas id="chart-alloc" height="120"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Habitos -->
+    <section id="habitos" class="view">
+      <div class="card">
+        <div class="card-head"><strong>Análisis de Hábitos</strong></div>
+        <div class="card-body">
+          <div id="habitos-body">
+            <div class="muted">Gasto promedio por día de la semana</div>
+            <canvas id="chart-week" height="100"></canvas>
+            <div class="muted">Tendencia (últimos 6 meses)</div>
+            <canvas id="chart-trend" height="100"></canvas>
+            <div id="hormigas"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Vencimientos -->
+    <section id="vencimientos" class="view">
+      <div class="card">
+        <div class="card-head"><strong>Próximos Vencimientos</strong></div>
+        <div class="card-body">
+          <div id="venc-list"></div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer muted">FinanceMaster PRO · generado para Amilcar</footer>
+  </main>
+</div>
+
+<!-- scripts -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
