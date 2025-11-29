@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinanceMaster PRO - Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>FinanceMaster PRO</h1>
+    <div class="user-panel">
+      <span id="userEmail">Usuario</span>
+      <button id="logoutBtn">Cerrar sesión</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Resumen Financiero General -->
+    <section class="dashboard-section">
+      <h2>Resumen Financiero General</h2>
+      <div class="cards-container">
+        <div class="card" id="netWorthCard">Patrimonio neto: $0</div>
+        <div class="card" id="monthlyFlowCard">Flujo mensual: $0</div>
+        <div class="card" id="availableCashCard">Líquido disponible: $0</div>
+      </div>
+    </section>
+
+    <!-- Ingresos -->
+    <section class="dashboard-section">
+      <h2>Ingresos</h2>
+      <form id="incomeForm">
+        <input type="text" id="incomeSource" placeholder="Fuente de ingreso" required>
+        <input type="number" id="incomeAmount" placeholder="Cantidad" required>
+        <button type="submit">Agregar ingreso</button>
+      </form>
+      <div id="incomeList"></div>
+    </section>
+
+    <!-- Gastos -->
+    <section class="dashboard-section">
+      <h2>Gastos por Categorías</h2>
+      <form id="expenseForm">
+        <input type="text" id="expenseCategory" placeholder="Categoría" required>
+        <input type="number" id="expenseAmount" placeholder="Cantidad" required>
+        <button type="submit">Agregar gasto</button>
+      </form>
+      <div id="expenseList"></div>
+    </section>
+
+    <!-- Presupuesto vs Real -->
+    <section class="dashboard-section">
+      <h2>Presupuesto vs Real</h2>
+      <div id="budgetComparison"></div>
+    </section>
+
+    <!-- Ahorros y Metas -->
+    <section class="dashboard-section">
+      <h2>Ahorros y Metas</h2>
+      <form id="savingsForm">
+        <input type="text" id="goalName" placeholder="Meta" required>
+        <input type="number" id="goalAmount" placeholder="Cantidad" required>
+        <button type="submit">Agregar meta</button>
+      </form>
+      <div id="goalsList"></div>
+    </section>
+
+    <!-- Próximos Vencimientos -->
+    <section class="dashboard-section">
+      <h2>Próximos Vencimientos</h2>
+      <div id="upcomingPayments"></div>
+    </section>
+  </main>
+
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/firestore.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
