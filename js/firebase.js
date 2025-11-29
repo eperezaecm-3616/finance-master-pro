@@ -1,12 +1,10 @@
-// Importaciones necesarias de Firebase
+// Importaciones necesarias
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
-import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-analytics.js";
 
-// ======================================================
-// Configuración de Firebase
-// ======================================================
+// Configuración de Firebase (usa tu proyecto)
 const firebaseConfig = {
   apiKey: "AIzaSyB2nO5sFxNy_-Usg29WcXvk1A676Nt-lhw",
   authDomain: "financemaster-pr0.firebaseapp.com",
@@ -23,5 +21,4 @@ const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
 
-// Exportar objetos para usarlos en otros archivos
-export { app, analytics, auth, db };
+export { app, auth, db };
