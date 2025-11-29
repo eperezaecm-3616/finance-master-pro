@@ -3,28 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FinanceMaster PRO - Login</title>
+  <title>FinanceMaster - Login</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="container">
-    <h1>FinanceMaster PRO</h1>
-
-    <div class="auth-container">
-      <!-- Registro -->
-      <form id="registerForm">
-        <h2>Registrarse</h2>
-        <input type="email" id="registerEmail" placeholder="Correo" required>
-        <input type="password" id="registerPassword" placeholder="Contraseña" required>
-        <button type="submit">Registrarse</button>
+    <h1>FinanceMaster</h1>
+    
+    <!-- Registro -->
+    <div id="register-section">
+      <h2>Registrarse</h2>
+      <form id="register-form">
+        <input type="email" id="register-email" placeholder="Correo electrónico" required>
+        <input type="password" id="register-password" placeholder="Contraseña" required>
+        <button type="submit">Registrar</button>
       </form>
+    </div>
 
-      <!-- Login -->
-      <form id="loginForm">
-        <h2>Iniciar sesión</h2>
-        <input type="email" id="loginEmail" placeholder="Correo" required>
-        <input type="password" id="loginPassword" placeholder="Contraseña" required>
-        <button type="submit">Iniciar sesión</button>
+    <!-- Login -->
+    <div id="login-section">
+      <h2>Iniciar Sesión</h2>
+      <form id="login-form">
+        <input type="email" id="login-email" placeholder="Correo electrónico" required>
+        <input type="password" id="login-password" placeholder="Contraseña" required>
+        <button type="submit">Entrar</button>
       </form>
     </div>
   </div>
