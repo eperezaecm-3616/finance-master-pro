@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FinanceMaster PRO - Dashboard</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>FinanceMaster PRO - Dashboard</h1>
+  <button onclick="cerrarSesion()">Cerrar Sesión</button>
+</header>
+
+<main>
+  <!-- Secciones: Resumen, Ingresos, Gastos, Metas, Deudas, Inversiones, etc. -->
+  <section id="resumen">
+    <h2>Resumen Financiero General</h2>
+    <div id="patrimonio">Patrimonio neto: $0</div>
+    <div id="flujo">Flujo mensual: $0</div>
+    <div id="liquido">Líquido disponible: $0</div>
+  </section>
+
+  <section id="ingresos">
+    <h2>Ingresos</h2>
+    <input type="number" id="nuevoIngreso" placeholder="Monto ingreso">
+    <button onclick="agregarIngreso()">Agregar ingreso</button>
+    <ul id="listaIngresos"></ul>
+  </section>
+
+  <!-- Puedes agregar más secciones aquí, igual que tus diseños previos -->
+</main>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-app.js";
+import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, updateDoc, arrayUnion } from "https://www.gstatic.com/firebasejs/12.6.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyB2nO5sFxNy_-Usg29WcXvk1A676Nt-lhw",
+  authDomain: "financemaster-pr0.firebaseapp.com",
+  projectId: "financemaster-pr0",
+  storageBucket: "financemaster-pr0.firebasestorage.app",
+  messagingSenderId: "535862107904",
+  appId: "1:535862107904:web:5cc701b94d1084091ddde5",
+  measurementId: "G-8MFS6YS282"
+};
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db = getFirestore(app);
+
+// Verificar usuario logueado
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    cargarDatos(user.uid);
+  } else {
+    window.location = "index.html";
+  }
+});
+
+// Cerrar sesión
+window.cerrarSesion = () => {
+  signOut(auth).then(()=> window.location='index.html');
+};
+
+// Cargar datos de Firestore
+async function cargarDatos(uid) {
+  const userRef = doc(db,"usuarios",uid);
+  const docSnap = await getDoc(userRef);
+  if (docSnap.exists()) {
+    const data = docSnap.data();
+    document.getElementById('patrimonio').textContent = `Patrimonio neto: $${calcularPatrimonio(data)}`;
+    document.getElementById('flujo').textContent = `Flujo mensual: $${calcularFlujo(data)}`;
+    document.getElementById('liquido').textContent = `Líquido disponible: $${calcularLiquido(data)}`;
+    mostrarIngresos(data.ingresos);
+  }
+}
+
+// Funciones de ejemplo para calcular datos
+function calcularPatrimonio(data){ return 0; } 
+function calcularFlujo(data){ return 0; } 
+function calcularLiquido(data){ return 0; }
+
+// Mostrar ingresos
+function mostrarIngresos(ingresos){
+  const lista = document.getElementById('listaIngresos');
+  lista.innerHTML = '';
+  ingresos.forEach(i=>{
+    const li = document.createElement('li');
+    li.textContent = `$${i}`;
+    lista.appendChild(li);
+  });
+}
+
+// Agregar ingreso
+window.agregarIngreso = async () => {
+  const monto = Number(document.getElementById('nuevoIngreso').value);
+  const user = auth.currentUser;
+  if(user && monto>0){
+    const userRef = doc(db,"usuarios",user.uid);
+    await updateDoc(userRef,{ ingresos: arrayUnion(monto) });
+    mostrarIngresos([monto]); // Para refrescar la lista
+  }
+};
+</script>
+</body>
+</html>
