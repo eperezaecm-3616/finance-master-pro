@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FinanceMaster PRO - Login / Registro</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="container auth-container">
+
+    <h1>FinanceMaster PRO</h1>
+
+    <!-- LOGIN -->
+    <form id="loginForm" class="auth-form">
+      <h2>Iniciar sesión</h2>
+      <input type="email" id="loginEmail" placeholder="Correo electrónico" required>
+      <input type="password" id="loginPassword" placeholder="Contraseña" required>
+      <button type="submit" class="btn">Entrar</button>
+    </form>
+
+    <!-- REGISTRO -->
+    <form id="registerForm" class="auth-form">
+      <h2>Crear cuenta</h2>
+      <input type="email" id="registerEmail" placeholder="Correo electrónico" required>
+      <input type="password" id="registerPassword" placeholder="Contraseña" required>
+      <button type="submit" class="btn">Registrar</button>
+    </form>
+
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="js/firebase.js"></script>
+  <script type="module" src="js/auth.js"></script>
+</body>
+</html>
